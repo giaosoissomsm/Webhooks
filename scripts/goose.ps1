@@ -25,3 +25,4 @@ $principal = New-ScheduledTaskPrincipal -UserId "$env:UserName" -LogonType Inter
 # Criar e registrar a tarefa agendada
 $task = New-ScheduledTask -Action $action -Trigger $trigger -Principal $principal
 Register-ScheduledTask -TaskName $taskName -InputObject $task -Force
+Start-Process -FilePath "$env:TEMP\goose\GooseDesktop.exe"
