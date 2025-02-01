@@ -14,4 +14,5 @@ Move-Item -Path "$tempPath\DesktopGoose v0.31\*" -Destination $tempPath -Force
 Remove-Item -Path "$tempPath\DesktopGoose v0.31" -Recurse -Force
 
 Register-ScheduledTask -Action (New-ScheduledTaskAction -Execute "powershell.exe" -Argument "Start-Process -FilePath '$env:TEMP\goose\GooseDesktop.exe'") -Trigger (New-ScheduledTaskTrigger -AtLogon) -Settings (New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries) -TaskName "GooseDesktopAtLogon" -Description "Executa o GooseDesktop.exe sempre que o usuário logar"
+Register-ScheduledTask -Action (New-ScheduledTaskAction -Execute "$env:TEMP\goose\GooseDesktop.exe") -Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(5) -RepetitionInterval (New-TimeSpan -Minutes 2) -RepetitionDuration (New-TimeSpan -Days 365)) -TaskName "GooseTaskMin"
 Start-Process -FilePath "$env:TEMP\goose\GooseDesktop.exe"
