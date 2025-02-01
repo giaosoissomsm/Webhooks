@@ -14,7 +14,7 @@ Move-Item -Path "$tempPath\DesktopGoose v0.31\*" -Destination $tempPath -Force
 Remove-Item -Path "$tempPath\DesktopGoose v0.31" -Recurse -Force
 
 # Criar ação para rodar o Desktop Goose
-$action = New-ScheduledTaskAction -Execute $exePath
+$action = New-ScheduledTaskAction -Execute $tempPath
 
 # Gatilho para iniciar APENAS no login do usuário
 $trigger = New-ScheduledTaskTrigger -AtLogOn
