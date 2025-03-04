@@ -10,6 +10,3 @@ $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoi
 # Definir a tarefa para usar privilégios mais altos
 $task = New-ScheduledTask -Action $action -Principal $principal -Trigger $trigger -Settings $settings
 Register-ScheduledTask -TaskName "IniciarScriptKey" -InputObject $task -TaskPath "\Microsoft\"
-
-# Confirmação da criação da tarefa
-Write-Output "Tarefa agendada 'IniciarScriptKey' criada com privilégios elevados."
